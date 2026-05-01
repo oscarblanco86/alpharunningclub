@@ -1,0 +1,19 @@
+---
+import { Image } from "astro:assets";
+---
+
+<div class="absolute inset-0">
+	<Image
+		src="/backdrop.webp"
+		alt="Alpha Runnig Shoes"
+		class="w-full h-full object-cover"
+		width={2070}
+		height={1380}
+		decoding="async"
+		fetchpriority="high"
+	/>
+	<div
+		class="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-900/50"
+	>
+	</div>
+</div>

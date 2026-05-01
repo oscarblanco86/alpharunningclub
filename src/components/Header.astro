@@ -1,0 +1,125 @@
+---
+import { Image } from "astro:assets";
+
+const navItems = [
+    { name: "El Club", href: "/club" },
+    { name: "Calculadoras", href: "/calculadoras" },
+    { name: "Eventos", href: "/eventos" },
+];
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-white/10 dark:bg-black/80 bg-white/80 backdrop-blur-md">
+    <div class="container mx-auto flex h-16 items-center justify-between px-4">
+        <div class="flex items-center">
+            <a href="/" class="flex items-center gap-2">
+                <Image src="/logo.svg" alt="Logo" width={40} height={40} />
+                <p class="text-xl font-bold tracking-tighter text-black dark:text-white">
+                    ALPHA <span class="text-green-500">RUNNING</span>
+                </p>
+            </a>
+        </div>
+
+        <nav class="hidden md:flex gap-8">
+            {navItems.map((item) => (
+                <a href={item.href} class="text-sm font-medium text-zinc-400 transition-colors hover:text-black dark:hover:text-white">
+                    {item.name}
+                </a>
+            ))}
+        </nav>
+
+        <!-- Botón para abrir el diálogo -->
+        <button
+            id="menu-open"
+            class="block md:hidden p-2 dark:text-white text-black"
+            aria-label="Abrir menú"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </div>
+</header>
+
+<!-- Menú Móvil Nativo con <dialog> -->
+<dialog 
+    id="mobile-menu" 
+    class="m-0 h-full max-h-none w-full max-w-none bg-transparent p-0 text-zinc-900 dark:text-white backdrop:bg-black/50 backdrop:backdrop-blur-sm"
+>
+    <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm dark:bg-gray-900 shadow-2xl">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <Image src="/logo.svg" alt="Logo" width={32} height={32} />
+                <span class="font-bold tracking-tighter">ALPHA RUNNING</span>
+            </div>
+            <!-- Botón para cerrar -->
+            <button
+                id="menu-close"
+                type="button"
+                class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-200"
+            >
+                <span class="sr-only">Cerrar menú</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                    <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="mt-6 flow-root">
+            <div class="-my-6 divide-y divide-gray-500/10 dark:divide-white/10">
+                <div class="space-y-2 py-6">
+                    {navItems.map((item) => (
+                        <a
+                            href={item.href}
+                            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold hover:bg-gray-50 dark:hover:bg-white/5"
+                        >
+                            {item.name}
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    const menuOpen = document.getElementById('menu-open') as HTMLButtonElement;
+    const menuClose = document.getElementById('menu-close') as HTMLButtonElement;
+    const mobileMenu = document.getElementById('mobile-menu') as HTMLDialogElement;
+
+    // Abrir el diálogo con el método nativo showModal
+    menuOpen?.addEventListener('click', () => {
+        mobileMenu?.showModal();
+        document.body.classList.add('overflow-hidden'); // Evita el scroll de fondo
+    });
+
+    // Cerrar el diálogo
+    const closeDialog = () => {
+        mobileMenu?.close();
+        document.body.classList.remove('overflow-hidden');
+    };
+
+    menuClose?.addEventListener('click', closeDialog);
+
+    // Cerrar al hacer clic fuera del panel (en el backdrop)
+    mobileMenu?.addEventListener('click', (e) => {
+        if (e.target === mobileMenu) closeDialog();
+    });
+</script>
+
+<style>
+    /* Animación de entrada para el panel */
+    dialog[open] div {
+        animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+    }
+
+    /* Reset de estilos nativos de dialog */
+    dialog::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+    }
+</style>

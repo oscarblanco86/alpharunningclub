@@ -1,46 +1,39 @@
-# Astro Starter Kit: Basics
+# Alpha Running Club 🏃‍♂️⚡️
 
-```sh
-bun create astro@latest -- --template basics
-```
+Plataforma web oficial del **Alpha Running Club** basada en Santa Rosa de Copán, Honduras. Este proyecto combina ciencia deportiva, comunidad y tecnología para ofrecer a los corredores herramientas de precisión y un seguimiento detallado de su progreso.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Desarrollado bajo la filosofía de **"Focused Professionalism"**: diseño minimalista, alto rendimiento y utilidad técnica.
 
-## 🚀 Project Structure
+## 🚀 Tecnologías
 
-Inside of your Astro project, you'll see the following folders and files:
+Este proyecto utiliza un stack moderno enfocado en la velocidad y la escalabilidad:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+- **Frontend:** [Astro](https://astro.build/) (Arquitectura de Islas para máxima velocidad).
+- **Interactividad:** [React](https://reactjs.org/) (Para las calculadoras científicas).
+- **Estilos:** [Tailwind CSS](https://tailwindcss.com/) (Diseño adaptativo y Dark Mode).
+- **Backend:** [Supabase](https://supabase.com/) (Base de datos PostgreSQL y Auth).
+- **Automatización:** [GitHub Actions](https://github.com/features/actions) (Cron jobs para sincronización de datos).
+- **API:** [Strava API](https://developers.strava.com/) (Extracción de métricas de rendimiento).
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## ✨ Características Principales
 
-## 🧞 Commands
+### 1. Alpha Coach (Laboratorio de Rendimiento)
+Herramientas integradas para el entrenamiento inteligente:
+- **Calculadora VDOT:** Basada en las fórmulas de Jack Daniels para determinar ritmos de entrenamiento precisos.
+- **Zonas de Esfuerzo:** Implementación de la **Fórmula de Karvonen** para personalizar zonas cardíacas (Z1-Z5) utilizando la frecuencia cardíaca en reposo.
 
-All commands are run from the root of the project, from a terminal:
+### 2. Sincronización Inteligente de Datos
+Superamos las limitaciones de la API de Strava mediante un pipeline de datos propio:
+- Automatización mediante **GitHub Actions** que extrae actividades periódicamente.
+- Persistencia en **Supabase** para mantener un historial infinito del club, permitiendo rankings anuales y totales precisos.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+### 3. Comunidad y Crónicas
+- **Métricas del Club:** Visualización de kilómetros totales, desnivel acumulado y récords locales.
+- **Crónicas de Carreras:** Galería multimedia y resúmenes de eventos con impacto social en la comunidad.
 
-## 👀 Want to learn more?
+## 🛠 Instalación y Configuración
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+1. **Clonar el repositorio:**
+   ```bash
+   git clone [https://github.com/tu-usuario/alpha-running-club.git](https://github.com/tu-usuario/alpha-running-club.git)
+   cd alpha-running-club

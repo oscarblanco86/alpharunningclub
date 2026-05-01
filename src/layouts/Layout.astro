@@ -1,3 +1,14 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import "../styles/global.css";
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -6,18 +17,27 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
 	</head>
-	<body>
-		<slot />
+	<body
+		class="bg-white dark:bg-black text-zinc-100 antialiased selection:bg-green-500/30 selection:text-green-500"
+	>
+		<Header />
+		<main class="min-h-screen">
+			<slot />
+		</main>
+		<Footer />
 	</body>
 </html>
 
 <style>
-	html,
+	html {
+		scroll-behavior: smooth;
+	},
 	body {
 		margin: 0;
 		width: 100%;
 		height: 100%;
+		font-family: 'Inter', system-ui, sans-serif;
 	}
 </style>

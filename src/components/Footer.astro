@@ -1,0 +1,43 @@
+---
+// src/components/Footer.astro
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full border-t border-white/10 bg-zinc-950 py-12 text-zinc-500">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Info del Club -->
+      <div>
+        <h3 class="text-white font-bold mb-4">Alpha Running Club</h3>
+        <p class="text-sm leading-relaxed">
+          Corriendo con propósito en Santa Rosa de Copán. <br/>
+          Impulsado por la tecnología y la comunidad.
+        </p>
+      </div>
+
+      <!-- Links rápidos -->
+      <div class="flex flex-col gap-2 text-sm">
+        <h3 class="text-white font-bold mb-2">Navegación</h3>
+        <a href="/calculadoras" class="hover:text-green-500">Calculadora VDOT</a>
+        <a href="/privacidad" class="hover:text-green-500">Privacidad</a>
+      </div>
+
+      <!-- Redes Sociales -->
+      <div>
+        <h3 class="text-white font-bold mb-4">Síguenos</h3>
+        <div class="flex gap-4">
+          <!-- Aquí puedes poner los iconos de las redes que creaste -->
+          <a href="#" class="hover:text-white transition-colors">Instagram</a>
+          <a href="#" class="hover:text-white transition-colors">Strava</a>
+          <a href="#" class="hover:text-white transition-colors">Facebook</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-white/5 text-center text-xs">
+      <p>&copy; {currentYear} Alpha Running Club. Creado por 
+        <a href="https://coderhn.dev" class="text-green-500 hover:underline">CoderHN</a>.
+      </p>
+    </div>
+  </div>
+</footer>
