@@ -1,0 +1,103 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { GpxMapContainer } from "../../components/react/GpxMapContainer";
+
+// Generamos las rutas permitidas de forma estática (SSG)
+export function getStaticPaths() {
+    return [{ params: { id: "laprensa202610k" } }];
+}
+
+const { id } = Astro.params;
+
+// Aquí podrías mapear la información según el ID en el futuro
+const rutaInfo = {
+    title: "Maratón Internacional La Prensa 2026 - 10K",
+    description:
+        "Análisis técnico de la ruta, altimetría, puntos de hidratación y estrategia de ritmo para los 10K.",
+    gpxFile: "/gpx/la_prensa_2026_10k.gpx", // Archivo guardado en la carpeta public/gpx/
+};
+---
+
+<Layout title={rutaInfo.title} description={rutaInfo.description}>
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <header class="mb-8">
+            <h1
+                class="text-3xl md:text-5xl font-black tracking-tighter text-black dark:text-white mb-2"
+            >
+                {rutaInfo.title}
+            </h1>
+            <p class="text-zinc-500 dark:text-zinc-400 text-lg">
+                Análisis técnico y recomendaciones estratégicas de la carrera.
+            </p>
+        </header>
+
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div
+                class="lg:col-span-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 rounded-2xl p-4 shadow-xl"
+            >
+                <GpxMapContainer
+                    gpxUrl={rutaInfo.gpxFile}
+                    client:only="react"
+                />
+            </div>
+
+            <div class="space-y-6">
+                <div
+                    class="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 rounded-2xl p-6"
+                >
+                    <h3 class="text-xl font-bold mb-4 text-green-500">
+                        📍 Puntos Clave
+                    </h3>
+                    <ul
+                        class="space-y-4 text-sm text-zinc-600 dark:text-zinc-300"
+                    >
+                        <li
+                            class="border-l-2 border-zinc-300 dark:border-zinc-700 pl-3"
+                        >
+                            <strong class="text-zinc-900 dark:text-white block"
+                                >KM 0.0 a 1.5 - Control Activo:</strong
+                            >
+                            Falso llano. Clave para buscar sensaciones y ritmo sin
+                            desgastarse por la presión de la salida.
+                        </li>
+                        <li class="border-l-2 border-blue-500 pl-3">
+                            <strong class="text-blue-500 block"
+                                >KM 1.5 a 4.0 - Transición Rápida (Bajada):</strong
+                            >
+                            Terreno favorable para soltar piernas y ganar velocidad
+                            eficiente aprovechando la gravedad.
+                        </li>
+                        <li class="border-l-2 border-red-500 pl-3">
+                            <strong class="text-red-500 block"
+                                >KM 4.0 a 5.5 - El Retorno (Subida Crítica):</strong
+                            >
+                            Cambio de pendiente severo tras el giro. Acorta la zancada
+                            y prioriza una cadencia alta.
+                        </li>
+                        <li class="border-l-2 border-yellow-500 pl-3">
+                            <strong class="text-yellow-500 block"
+                                >KM 5.5 a 7.5 - Falso Llano:</strong
+                            >
+                            Momento de estabilizar el pulso y mantener un ritmo sólido
+                            de carrera.
+                        </li>
+                        <li class="border-l-2 border-orange-500 pl-3">
+                            <strong class="text-orange-500 block"
+                                >KM 7.5 a 9.5 - Zona de Esfuerzo Máximo:</strong
+                            >
+                            Fatiga acumulada y repecho final. Mantén la postura y
+                            el braceo activo.
+                        </li>
+                        <li class="border-l-2 border-green-500 pl-3">
+                            <strong class="text-green-500 block"
+                                >KM 9.5 a 10.5 - Cierre y Sprint:</strong
+                            >
+                            Último kilómetro plano. Visualiza la meta y vacía el tanque
+                            de energía.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</Layout>
