@@ -2,28 +2,65 @@
 import Layout from "../../layouts/Layout.astro";
 import { GpxMapContainer } from "../../components/react/GpxMapContainer";
 
-// Generamos las rutas permitidas de forma estática (SSG)
+// 1. Declaramos las 3 variantes de distancia en el enrutamiento estático de Astro
 export function getStaticPaths() {
-    return [{ params: { id: "laprensa202610k" } }];
+    return [
+        { params: { id: "laprensa20265k" } },
+        { params: { id: "laprensa202610k" } },
+        { params: { id: "laprensa202621k" } }
+    ];
 }
 
 const { id } = Astro.params;
 
-// Aquí podrías mapear la información según el ID en el futuro
-const rutaInfo = {
-    title: "Maratón Internacional La Prensa 2026 - 10K",
-    description:
-        "Análisis técnico de la ruta, altimetría, puntos de hidratación y estrategia de ritmo para los 10K.",
-    gpxFile: "/gpx/la_prensa_2026_10k.gpx", // Archivo guardado en la carpeta public/gpx/
+// 2. Diccionario de datos técnicos adaptados a cada archivo GPX
+const rutasMaster = {
+    laprensa20265k: {
+        title: "Maratón Internacional La Prensa 2026 - 5K",
+        description: "Circuito rápido de 5 kilómetros. Ideal para velocistas y entusiastas que buscan mejorar su marca personal.",
+        gpxFile: "/gpx/la_prensa_2026_5k.gpx",
+        puntosClave: [
+            { label: "KM 0.0 a 1.5 - Ritmo de Salida:", color: "border-zinc-300 dark:border-zinc-700", text: "Falso llano. Sal controlado, la aglomeración inicial puede hacerte gastar energía de más." },
+            { label: "KM 1.5 a 2.5 - Transición y Descenso:", color: "border-blue-500", text: "Aprovecha la pendiente a favor para soltar zancada de manera fluida hacia el punto de retorno." },
+            { label: "KM 2.5 - Punto de Giro:", color: "border-red-500", text: "Retorno cerrado de 180 grados. Recupera la cadencia rápido, ya que aquí comienza la subida de regreso." },
+            { label: "KM 2.5 a 5.0 - Gestión de Subida y Meta:", color: "border-orange-500", text: "Pendiente positiva constante. Mantén la vista al frente, acorta levemente el paso e incrementa el braceo hasta el arco final." }
+        ]
+    },
+    laprensa202610k: {
+        title: "Maratón Internacional La Prensa 2026 - 10K",
+        description: "Análisis técnico de la ruta, altimetría, puntos de hidratación y estrategia de ritmo para los 10K.",
+        gpxFile: "/gpx/la_prensa_2026_10k.gpx",
+        puntosClave: [
+            { label: "KM 0.0 a 1.5 - Control Activo:", color: "border-zinc-300 dark:border-zinc-700", text: "Falso llano. Clave para buscar sensaciones y ritmo sin desgastarse por la presión de la salida." },
+            { label: "KM 1.5 a 4.0 - Transición Rápida (Bajada):", color: "border-blue-500", text: "Terreno favorable para soltar piernas y ganar velocidad eficiente aprovechando la gravedad." },
+            { label: "KM 4.0 a 5.5 - El Retorno (Subida Crítica):", color: "border-red-500", text: "Cambio de pendiente severo tras el giro. Acorta la zancada y prioriza una cadencia alta." },
+            { label: "KM 5.5 a 7.5 - Falso Llano:", color: "border-yellow-500", text: "Momento de estabilizar el pulso y mantener un ritmo sólido de carrera." },
+            { label: "KM 7.5 a 9.5 - Zona de Esfuerzo Máximo:", color: "border-orange-500", text: "Fatiga acumulada y repecho final. Mantén la postura y el braceo activo." },
+            { label: "KM 9.5 a 10.5 - Cierre y Sprint:", color: "border-green-500", text: "Último kilómetro plano. Visualiza la meta y vacía el tanque de energía." }
+        ]
+    },
+    laprensa202621k: {
+        title: "Maratón Internacional La Prensa 2026 - 21K",
+        description: "Guía estratégica para el medio maratón. Gestión de umbral de lactato, altimetría profunda y ritmo de fondo.",
+        gpxFile: "/gpx/la_prensa_2026_21k.gpx",
+        puntosClave: [
+            { label: "KM 0.0 a 5.0 - Fase de Enfoque y Aclimatación:", color: "border-zinc-300 dark:border-zinc-700", text: "Crucial mantener ritmo de umbral aeróbico. No dejes que los corredores de distancias cortas alteren tu plan." },
+            { label: "KM 5.0 a 12.0 - Descenso Continuado:", color: "border-blue-500", text: "Tramo largo cuesta abajo. Mantén un ritmo eficiente y económico protegiendo tus cuádriceps del impacto repetitivo." },
+            { label: "KM 12.0 - Retorno Mayor:", color: "border-red-500", text: "Giro de regreso. Hidrátate bien aquí; inicia oficialmente el verdadero desafío físico y mental de la prueba." },
+            { label: "KM 12.0 a 18.0 - Retorno de Resistencia (Subida):", color: "border-orange-500", text: "Exigencia muscular alta tratando de recuperar la altitud inicial. Controla tu frecuencia cardíaca." },
+            { label: "KM 18.0 a 21.1 - Kilómetros de Campeonato:", color: "border-green-500", text: "Falso llano final con fatiga severa. Corre con el corazón, mantén la concentración en tu zancada y cierra con fuerza." }
+        ]
+    }
 };
+
+// Seleccionamos la información correspondiente al ID dinámico actual de la URL
+const rutaInfo = rutasMaster[id as keyof typeof rutasMaster];
 ---
 
 <Layout title={rutaInfo.title} description={rutaInfo.description}>
     <div class="container mx-auto px-4 py-8 max-w-5xl">
         <header class="mb-8">
-            <h1
-                class="text-3xl md:text-5xl font-black tracking-tighter text-black dark:text-white mb-2"
-            >
+            <h1 class="text-3xl md:text-5xl font-black tracking-tighter text-black dark:text-white mb-2">
                 {rutaInfo.title}
             </h1>
             <p class="text-zinc-500 dark:text-zinc-400 text-lg">
@@ -32,9 +69,7 @@ const rutaInfo = {
         </header>
 
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            <div
-                class="lg:col-span-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 rounded-2xl p-4 shadow-xl"
-            >
+            <div class="lg:col-span-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 rounded-2xl p-4 shadow-xl">
                 <GpxMapContainer
                     gpxUrl={rutaInfo.gpxFile}
                     client:only="react"
@@ -42,59 +77,19 @@ const rutaInfo = {
             </div>
 
             <div class="space-y-6">
-                <div
-                    class="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 rounded-2xl p-6"
-                >
+                <div class="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 rounded-2xl p-6">
                     <h3 class="text-xl font-bold mb-4 text-green-500">
                         📍 Puntos Clave
                     </h3>
-                    <ul
-                        class="space-y-4 text-sm text-zinc-600 dark:text-zinc-300"
-                    >
-                        <li
-                            class="border-l-2 border-zinc-300 dark:border-zinc-700 pl-3"
-                        >
-                            <strong class="text-zinc-900 dark:text-white block"
-                                >KM 0.0 a 1.5 - Control Activo:</strong
-                            >
-                            Falso llano. Clave para buscar sensaciones y ritmo sin
-                            desgastarse por la presión de la salida.
-                        </li>
-                        <li class="border-l-2 border-blue-500 pl-3">
-                            <strong class="text-blue-500 block"
-                                >KM 1.5 a 4.0 - Transición Rápida (Bajada):</strong
-                            >
-                            Terreno favorable para soltar piernas y ganar velocidad
-                            eficiente aprovechando la gravedad.
-                        </li>
-                        <li class="border-l-2 border-red-500 pl-3">
-                            <strong class="text-red-500 block"
-                                >KM 4.0 a 5.5 - El Retorno (Subida Crítica):</strong
-                            >
-                            Cambio de pendiente severo tras el giro. Acorta la zancada
-                            y prioriza una cadencia alta.
-                        </li>
-                        <li class="border-l-2 border-yellow-500 pl-3">
-                            <strong class="text-yellow-500 block"
-                                >KM 5.5 a 7.5 - Falso Llano:</strong
-                            >
-                            Momento de estabilizar el pulso y mantener un ritmo sólido
-                            de carrera.
-                        </li>
-                        <li class="border-l-2 border-orange-500 pl-3">
-                            <strong class="text-orange-500 block"
-                                >KM 7.5 a 9.5 - Zona de Esfuerzo Máximo:</strong
-                            >
-                            Fatiga acumulada y repecho final. Mantén la postura y
-                            el braceo activo.
-                        </li>
-                        <li class="border-l-2 border-green-500 pl-3">
-                            <strong class="text-green-500 block"
-                                >KM 9.5 a 10.5 - Cierre y Sprint:</strong
-                            >
-                            Último kilómetro plano. Visualiza la meta y vacía el tanque
-                            de energía.
-                        </li>
+                    <ul class="space-y-4 text-sm text-zinc-600 dark:text-zinc-300">
+                        {rutaInfo.puntosClave.map((punto) => (
+                            <li class={`border-l-2 ${punto.color} pl-3`}>
+                                <strong class="text-zinc-900 dark:text-white block">
+                                    {punto.label}
+                                </strong>
+                                {punto.text}
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
