@@ -140,8 +140,12 @@ export function GpxMapContainer({ gpxUrl }) {
         {coordinates.length > 0 && (
           <MapContainer center={coordinates[0]} zoom={14} style={{ height: '100%', width: '100%' }}>
             <TileLayer
-              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-              attribution='&copy; OpenStreetMap'
+              // Tiles oficiales de OpenStreetMap. OSM ya no recomienda los subdominios {s}
+              // y exige atribución válida y que el navegador envíe el Referer del sitio.
+              url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+              maxZoom={19}
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              referrerPolicy="strict-origin-when-cross-origin"
             />
             <Polyline positions={coordinates} color="#22c55e" weight={4} opacity={0.8} />
             <RecenterMap positions={coordinates} />
