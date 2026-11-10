@@ -1,12 +1,65 @@
 ---
 import Inicio from '../components/Inicio.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { RUTAS, SOCIAL_LINKS } from '../consts';
 ---
 
-<Layout title="Incio">
+<Layout title="Inicio">
 	<Inicio />
-	
+
+	<section id="club" class="scroll-mt-16 container mx-auto px-4 py-20">
+		<div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center">
+			<div>
+				<p class="mb-2 text-sm font-semibold uppercase tracking-widest text-green-500">El Club</p>
+				<h2 class="text-3xl font-black tracking-tighter text-black dark:text-white md:text-4xl">Los Mustangs de Copán</h2>
+				<p class="mt-4 text-zinc-600 dark:text-zinc-400">
+					Corremos juntos en Santa Rosa de Copán: principiantes y corredores con experiencia, del primer 5K al medio maratón. Entrenamos en grupo, analizamos cada ruta y compartimos cada avance.
+				</p>
+				<a
+					href={SOCIAL_LINKS.strava}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="mt-6 inline-block font-semibold text-green-500 hover:underline"
+				>
+					Síguenos en Strava →
+				</a>
+			</div>
+			<ul class="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
+				<li class="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 dark:border-white/10 dark:bg-zinc-900">
+					<strong class="block text-black dark:text-white">Comunidad</strong>
+					<span class="text-sm text-zinc-600 dark:text-zinc-400">Entrenos en grupo para todos los niveles.</span>
+				</li>
+				<li class="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 dark:border-white/10 dark:bg-zinc-900">
+					<strong class="block text-black dark:text-white">Ciencia</strong>
+					<span class="text-sm text-zinc-600 dark:text-zinc-400">Zonas de pulso y ritmos a tu medida.</span>
+				</li>
+				<li class="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 dark:border-white/10 dark:bg-zinc-900">
+					<strong class="block text-black dark:text-white">Rutas</strong>
+					<span class="text-sm text-zinc-600 dark:text-zinc-400">Altimetría y estrategia de cada carrera.</span>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<section id="eventos" class="scroll-mt-16 border-t border-zinc-200 dark:border-white/10">
+		<div class="container mx-auto px-4 py-20">
+			<p class="mb-2 text-sm font-semibold uppercase tracking-widest text-green-500">Eventos & Rutas</p>
+			<h2 class="text-3xl font-black tracking-tighter text-black dark:text-white md:text-4xl">Maratón Internacional La Prensa 2026</h2>
+			<p class="mt-4 max-w-2xl text-zinc-600 dark:text-zinc-400">
+				Mapa, perfil de elevación y puntos clave de cada distancia para que llegues con estrategia.
+			</p>
+			<div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+				{RUTAS.map((ruta) => (
+					<a
+						href={`/rutas/${ruta.id}`}
+						class="group rounded-2xl border border-zinc-200 bg-zinc-50 p-6 transition-colors hover:border-green-500 dark:border-white/10 dark:bg-zinc-900"
+					>
+						<span class="text-sm text-zinc-500">{ruta.distance}</span>
+						<strong class="mt-1 block text-lg text-black dark:text-white">{ruta.name}</strong>
+						<span class="mt-4 block text-sm font-semibold text-green-500 group-hover:underline">Ver ruta →</span>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
 </Layout>

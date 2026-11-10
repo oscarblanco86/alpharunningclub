@@ -5,20 +5,52 @@ import "../styles/global.css";
 import "leaflet/dist/leaflet.css";
 interface Props {
 	title: string;
+	description?: string;
+	image?: string;
 }
 
-const { title } = Astro.props;
+const {
+	title,
+	description = "Los Mustangs de Copán: comunidad de corredores en Santa Rosa de Copán. Rutas analizadas, zonas de entrenamiento y predicción de tiempos.",
+	image = "/og-image.jpg",
+} = Astro.props;
+
+const fullTitle = `${title} | Alpha Running Club`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const imageURL = new URL(image, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{fullTitle}</title>
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="theme-color" content="#22c55e" />
+
+		<!-- Open Graph (WhatsApp, Facebook, Telegram, LinkedIn...) -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Alpha Running Club" />
+		<meta property="og:locale" content="es_HN" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageURL} />
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Alpha Running Club: Corre con la manada. Entrena con ciencia." />
+
+		<!-- Twitter / X -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageURL} />
 	</head>
 	<body
 		class="bg-white dark:bg-black text-zinc-100 antialiased selection:bg-green-500/30 selection:text-green-500"
@@ -34,7 +66,7 @@ const { title } = Astro.props;
 <style>
 	html {
 		scroll-behavior: smooth;
-	},
+	}
 	body {
 		margin: 0;
 		width: 100%;

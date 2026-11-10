@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { RunScienceCalculator } from '../components/react/RunScienceCalculator';
+---
+
+<Layout
+	title="Zonas & Desempeño"
+	description="Calcula tus zonas de frecuencia cardíaca, ritmos de entrenamiento y tiempos estimados para 10K, 21K y maratón a partir de tu último 5K."
+>
+	<section class="container mx-auto px-4 py-12">
+		<RunScienceCalculator client:load />
+	</section>
+</Layout>

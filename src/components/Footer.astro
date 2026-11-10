@@ -1,6 +1,13 @@
 ---
-// src/components/Footer.astro
+import { SOCIAL_LINKS } from '../consts';
+
 const currentYear = new Date().getFullYear();
+const socials = [
+  { name: 'Instagram', href: SOCIAL_LINKS.instagram },
+  { name: 'Strava', href: SOCIAL_LINKS.strava },
+  { name: 'Facebook', href: SOCIAL_LINKS.facebook },
+  { name: 'TikTok', href: SOCIAL_LINKS.tiktok },
+];
 ---
 
 <footer class="w-full border-t border-white/10 bg-zinc-950 py-12 text-zinc-500">
@@ -10,7 +17,7 @@ const currentYear = new Date().getFullYear();
       <div>
         <h3 class="text-white font-bold mb-4">Alpha Running Club</h3>
         <p class="text-sm leading-relaxed">
-          Corriendo con propósito en Santa Rosa de Copán. <br/>
+          Los Mustangs de Copán. Corriendo con propósito en Santa Rosa de Copán. <br/>
           Impulsado por la tecnología y la comunidad.
         </p>
       </div>
@@ -18,25 +25,25 @@ const currentYear = new Date().getFullYear();
       <!-- Links rápidos -->
       <div class="flex flex-col gap-2 text-sm">
         <h3 class="text-white font-bold mb-2">Navegación</h3>
-        <a href="/calculadoras" class="hover:text-green-500">Calculadora VDOT</a>
-        <a href="/privacidad" class="hover:text-green-500">Privacidad</a>
+        <a href="/zonas-desempeno" class="hover:text-green-500 transition-colors">Zonas & Desempeño</a>
+        <a href="/#club" class="hover:text-green-500 transition-colors">Sobre el Club</a>
+        <a href="/#eventos" class="hover:text-green-500 transition-colors">Eventos & Rutas</a>
       </div>
 
       <!-- Redes Sociales -->
       <div>
         <h3 class="text-white font-bold mb-4">Síguenos</h3>
-        <div class="flex gap-4">
-          <!-- Aquí puedes poner los iconos de las redes que creaste -->
-          <a href="#" class="hover:text-white transition-colors">Instagram</a>
-          <a href="#" class="hover:text-white transition-colors">Strava</a>
-          <a href="#" class="hover:text-white transition-colors">Facebook</a>
+        <div class="flex flex-wrap gap-4 text-sm">
+          {socials.map((s) => (
+            <a href={s.href} target="_blank" rel="noopener noreferrer" class="hover:text-green-500 transition-colors">{s.name}</a>
+          ))}
         </div>
       </div>
     </div>
 
     <div class="mt-12 pt-8 border-t border-white/5 text-center text-xs">
-      <p>&copy; {currentYear} Alpha Running Club. Creado por 
-        <a href="https://coderhn.dev" class="text-green-500 hover:underline">CoderHN</a>.
+      <p>&copy; {currentYear} Alpha Running Club. Creado por
+        <a href="https://coderhn.dev" target="_blank" rel="noopener noreferrer" class="text-green-500 hover:underline">CoderHN</a>.
       </p>
     </div>
   </div>

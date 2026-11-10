@@ -1,11 +1,8 @@
 ---
 import { Image } from "astro:assets";
+import { SITE_NAV } from "../consts";
 
-const navItems = [
-    { name: "El Club", href: "/club" },
-    { name: "Calculadoras", href: "/calculadoras" },
-    { name: "Eventos", href: "/eventos" },
-];
+const navItems = SITE_NAV;
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-white/10 dark:bg-black/80 bg-white/80 backdrop-blur-md">
